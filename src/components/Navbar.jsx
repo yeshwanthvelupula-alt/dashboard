@@ -1,29 +1,45 @@
-// src/components/Sidebar.jsx (or your layout file)
+// src/components/Navbar.jsx
 import React from 'react';
 
-export default function Sidebar() {
+export default function Navbar({ searchId, setSearchId, onSearchSubmit, errorMessage, employeeName }) {
+  
+  const executeFormSubmit = (e) => {
+    e.preventDefault();
+    onSearchSubmit(searchId);
+  };
+
   return (
-    <div className="sidebar-container bg-slate-900 text-white w-64 h-screen p-4">
-      {/* Updated Company Branding */}
-      <div className="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
-        <div className="bg-orange-500 text-white font-black px-2 py-1 rounded text-lg tracking-wider">
-          AGPL
-        </div>
-        <div>
-          <h1 className="text-sm font-bold leading-tight tracking-wide text-gray-100">
-            Adani Gangavaram
-          </h1>
-          <p className="text-xs text-gray-400 font-medium">Port Limited</p>
-        </div>
+    <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 z-10 shadow-sm">
+      
+      {/* AGPL Branding Logo Context Area */}
+      <div className="flex items-center gap-2">
+        <span className="bg-orange-600 text-white font-black text-xs px-2 py-1 rounded">AGPL</span>
+        <span className="text-sm font-bold text-slate-800 hidden sm:inline">Adani Gangavaram Port Limited</span>
       </div>
 
-      {/* Navigation Links */}
-      <nav className="space-y-2">
-        <a href="#dashboard" className="flex items-center space-x-3 p-2 rounded bg-slate-800 text-white">
-          <span>Dashboard</span>
-        </a>
-        {/* Other links... */}
-      </nav>
-    </div>
+      {/* Interactive Search Bar Action Implementation Form Container */}
+      <form onSubmit={executeFormSubmit} className="flex items-center gap-2 relative">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchId}
+            onChange={(e) => setSearchId(e.target.value)}
+            placeholder="Search Employee ID..."
+            className="border border-gray-300 rounded-md px-3 py-1.5 text-xs w-48 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
+          />
+          {errorMessage && (
+            <span className="absolute left-0 -bottom-4 text-[10px] text-red-500 font-medium whitespace-nowrap">
+              {errorMessage}
+            </span>
+          )}
+        </div>
+        <button 
+          type="submit" 
+          className="bg-slate-900 hover:bg-slate-800 text-white px-3 py-1.5 rounded-md text-xs font-medium transition-colors"
+        >
+          Query
+        </button>
+      </form>
+    </header>
   );
 }
