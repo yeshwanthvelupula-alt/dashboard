@@ -5,7 +5,7 @@ import TaskStatusChart from './components/TaskStatusChart';
 import AttendanceTable from './components/AttendanceTable';
 import LeaveCalendar from './components/LeaveCalendar';
 
-// 1. Centralized Mock Database for HR Admin lookup capabilities
+// Centralized Mock Database for HR Admin lookup capabilities
 const mockEmployeeDatabase = {
   "EMP101": {
     name: "Bhaskar B. Balasa",
@@ -30,12 +30,12 @@ const mockEmployeeDatabase = {
 };
 
 export default function App() {
-  // 2. Define state variables for controlling the current searched employee context
+  // Define state variables for controlling the current searched employee context
   const [searchId, setSearchId] = useState("EMP101");
   const [currentEmployee, setCurrentEmployee] = useState(mockEmployeeDatabase["EMP101"]);
   const [error, setError] = useState("");
 
-  // 3. Search handling mechanism called from the Navbar trigger
+  // Search handling mechanism called from the Navbar trigger
   const handleSearchSubmit = (targetId) => {
     const cleanId = targetId.toUpperCase().trim();
     const empData = mockEmployeeDatabase[cleanId];
@@ -66,10 +66,10 @@ export default function App() {
         <main className="flex-1 overflow-x-hidden overflow-y-auto p-6">
           <div className="max-w-7xl mx-auto space-y-6">
             
-            {/* Context Header */}
+            {/* Context Header Banner */}
             <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex justify-between items-center">
               <div>
-                <p className="text-xs font-bold text-orange-600 uppercase tracking-wider">Currently Administering</p>
+                <p className="text-xs font-bold text-orange-600 uppercase tracking-wider">HR Admin Portal</p>
                 <h2 className="text-xl font-semibold text-gray-800">{currentEmployee.name}</h2>
                 <p className="text-sm text-gray-500">{currentEmployee.role} — Profile Context Active</p>
               </div>
@@ -78,24 +78,24 @@ export default function App() {
               </div>
             </div>
 
-            {/* 4. Pass specific data properties down to OverviewCards */}
+            {/* Your Original Overview Cards */}
             <OverviewCards metrics={currentEmployee.metrics} />
 
             {/* Middle Analytics Layout Row Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
-              {/* Task Matrix Section */}
+              {/* Your Original Task Matrix Section */}
               <div className="lg:col-span-1">
                 <TaskStatusChart taskData={currentEmployee.tasks} />
               </div>
 
-              {/* Step 3 Component Integration: Dynamic Attendance & Leave Calendar */}
+              {/* Step 3 Feature: Dynamic Attendance & Leave Calendar */}
               <div className="lg:col-span-2">
                 <LeaveCalendar leaveData={currentEmployee.leaveHistory} />
               </div>
             </div>
 
-            {/* Historical Raw Table View */}
+            {/* Your Original Historical Data Table View */}
             <AttendanceTable employeeId={searchId} />
 
           </div>
